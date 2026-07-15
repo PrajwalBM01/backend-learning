@@ -2,7 +2,7 @@ import { Router } from "express";
 import { email, z } from "zod";
 
 const registerUserSchema = z.object({
-  email: z.email(),
+  email: z.email({ error: "Enter a valid email." }),
   name: z.string(),
 });
 
