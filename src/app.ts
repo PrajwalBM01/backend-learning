@@ -1,6 +1,6 @@
 import express from "express";
-import { errorHandler } from "../../playground/middlewares/error-handler";
-import { NotFoundError } from "../../playground/errors/app-error";
+import { errorHandler } from "./middlewares/error-handler";
+import { NotFoundError } from "./errors/app-error";
 import routes from "./routes/index";
 
 export const app = express();

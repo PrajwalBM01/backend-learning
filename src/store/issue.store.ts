@@ -2,7 +2,7 @@ import { CreateIssuesInput, Issue } from "../schemas/issue.schema";
 import crypto from "node:crypto";
 const issues = new Map<string, Issue>();
 
-export const issuesServices = {
+export const issuesStore = {
   insertIssue: (input: CreateIssuesInput): Issue => {
     const now = new Date();
     const issue: Issue = {
