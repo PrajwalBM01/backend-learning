@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AppError } from "../errors/app-error";
 import { ZodError } from "zod";
+import { mapPrismaError } from "../errors/prisma-error-handler";
 
 export function errorHandler(
   err: Error,
@@ -13,11 +14,15 @@ export function errorHandler(
     return next(err);
   }
 
+  //mapping prisma errors
+  const mapped = mapPrismaError(err);
+  const error = mapped ?? err;
+
   //operational errors
-  if (err instanceof AppError && err.isOperational) {
-    return res.status(err.statuscode).json({
+  if (error instanceof AppError && error.isOperational) {
+    return res.status(error.statuscode).json({
       success: false,
-      error: { code: err.statuscode, message: err.message },
+      error: { code: error.statuscode, message: error.message },
     });
   }
 
@@ -34,8 +39,13 @@ export function errorHandler(
 
   //programming errors
   console.error("UNEXPECTED ERROR", err);
-  res.status(500).json({
+  res.status(mapped && !mapped.isOperational ? mapped.statuscode : 500).json({
     success: false,
-    error: { message: "Internal server error" },
+    error: {
+      message:
+        mapped?.isOperational === false
+          ? mapped.message
+          : "Internal server error",
+    },
   });
 }

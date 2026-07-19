@@ -85,12 +85,14 @@ In Express, **first matching route wins**. Always register \*_specific routes be
 - URL versioning is important, as renaming, removing, changinf will be needed eventually.
 
 # Database manipulation (postgreSQL)
+
 - raw driver(pg) > query builder (kysely) > drizzle > prisma.
 - But still we will start with learning prisma first, cuz its easy to learn, and we work with objects and schemas.
 - install prisma, prisma client and its adapter (pg,neon etc...)
-- run ```npx prisma init`` , it will generare 2 files prisma/schema.prisma and prisma.config.ts
+- run `npx prisma init` , it will generare 2 files prisma/schema.prisma and prisma.config.ts
 - use the prisma schema language and define the schema (structure) for your tabel
-- run ```npx prisma generate```, it will create a folder ./src/generated which has the prisma client.
+- run ```npx prisma migrate dev --name init``` to generate first migration.
+- run `npx prisma generate`, it will create a folder ./src/generated which has the prisma client.
 - then create and export the client with the requierd adapter ./src/lib/prisma.ts.
 - import and use the client to perform CRUD operations.
-- run ```npx prisma migrate dev --name migration_name``` to migrate a change made into the schema file.
+- run `npx prisma migrate dev --name migration_name` to migrate a change made into the schema file.

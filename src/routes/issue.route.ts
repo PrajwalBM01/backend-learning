@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { CreateIssueBody, CreateIssuesInput } from "../schemas/issue.schema";
-import { isssueContoller } from "../controllers/issue.controller";
+import { issueController } from "../controllers/issue.controller";
 import { success } from "zod";
 
 const router = Router();
@@ -33,9 +33,9 @@ const router = Router();
 // });
 
 //create an issue
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   const body: CreateIssuesInput = CreateIssueBody.parse(req.body);
-  const newIssue = await isssueContoller.createIssue(body);
+  const newIssue = await issueController.createIssue(body);
 
   return res.status(201).json({
     success: true,

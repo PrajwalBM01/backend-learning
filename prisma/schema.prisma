@@ -32,6 +32,6 @@ model Issues {
   priority IssuePriority @default(medium)
   labels String[] @default([])
   createdAt DateTime @default(now())
-  updatedAt DateTime
-  closedAt DateTime?
+  updatedAt DateTime @updatedAt
+  closedAt DateTime? 
 }
