@@ -15,22 +15,22 @@ const router = Router();
 //   });
 // });
 
-//get issue by id
-// router.get("/:id", (req, res) => {
-//   const issueId = req.params;
-//   const issue = isssueContoller.getIssueById(issueId.id);
+// get issue by id
+router.get("/:id", (req, res) => {
+  const issueId = req.params;
+  const issue = isssueContoller.getIssueById(issueId.id);
 
-//   if (!issue) {
-//     return res.status(204).json({
-//       success: false,
-//       message: "not found",
-//     });
-//   }
-//   return res.status(201).json({
-//     success: true,
-//     data: issue,
-//   });
-// });
+  if (!issue) {
+    return res.status(204).json({
+      success: false,
+      message: "not found",
+    });
+  }
+  return res.status(201).json({
+    success: true,
+    data: issue,
+  });
+});
 
 //create an issue
 router.post("/", async (req: Request, res: Response) => {
